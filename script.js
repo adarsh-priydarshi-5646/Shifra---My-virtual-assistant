@@ -7,7 +7,14 @@ function speak(text) {
     text_speak.rate = 1
     text_speak.pitch = 1
     text_speak.volume = 1
-    text_speak.lang = "en-IN"
+    text_speak.lang = "en-IN" // Ensures it's set to Indian English
+    const voices = speechSynthesis.getVoices() // Get all available voices
+    const indianFemaleVoice = voices.find(voice => voice.lang === "en-IN" && voice.name.includes("female")) // Find an Indian female voice
+    
+    if (indianFemaleVoice) {
+        text_speak.voice = indianFemaleVoice // Set the selected voice
+    }
+
     window.speechSynthesis.speak(text_speak)
 }
 
