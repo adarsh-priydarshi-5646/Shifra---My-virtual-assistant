@@ -7,12 +7,19 @@ function speak(text) {
     text_speak.rate = 1
     text_speak.pitch = 1
     text_speak.volume = 1
-    text_speak.lang = "en-IN" // Ensures it's set to Indian English
-    const voices = speechSynthesis.getVoices() // Get all available voices
-    const indianFemaleVoice = voices.find(voice => voice.lang === "en-IN" && voice.name.includes("female")) // Find an Indian female voice
-    
+    text_speak.lang = "en-IN" // Setting language to Indian English
+
+    // Get all available voices
+    const voices = speechSynthesis.getVoices()
+
+    // Find an Indian female voice
+    const indianFemaleVoice = voices.find(voice => voice.lang === "en-IN" && voice.name.toLowerCase().includes("female"))
+
+    // If a matching voice is found, use it
     if (indianFemaleVoice) {
-        text_speak.voice = indianFemaleVoice // Set the selected voice
+        text_speak.voice = indianFemaleVoice
+    } else {
+        console.log("Indian female voice not found, using default voice.")
     }
 
     window.speechSynthesis.speak(text_speak)
